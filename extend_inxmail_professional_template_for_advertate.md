@@ -333,29 +333,29 @@ Auf einem Anzeigenplatz kann entweder eine Anzeige reserviert/gebucht sein. Alle
 
 Die Eingaben des Redakteurs (Publikation, Anzeigenplatz, Versandzeitpunkt, Versandmodus) und der Status der Anzeige auf Advertate Seite (Vollständigkeit und Buchungsstatus) ergeben einige zu testende Kombinationsmöglichkeiten. Die unten aufgeführte Tabelle veranschaulicht mit welchem XML-Dokument Advertate in den verschiedenen Fällen antwortet.
 
-| Buchungsstatus | Vollständigkeit | Versandmodus | XML-Dokument                                                                                     |
-|----------------|-----------------|--------------|--------------------------------------------------------------------------------------------------|
-| reserviert     | unvollständig   | Vorschau     | Fehlermeldung '*Anzeigenplatz nicht gebucht*'                                                    |
-| reserviert     | vollständig     | Vorschau     | Fehlermeldung '*Anzeigenplatz nicht gebucht*'                                                    |
-| reserviert     | unvollständig   | Test         | Leere Anzeige                                                                                    |
-| reserviert     | vollständig     | Test         | Leere Anzeige                                                                                    |
-| reserviert     | unvollständig   | Echt         | Leere Anzeige                                                                                    |
-| reserviert     | vollständig     | Echt         | Leere Anzeige                                                                                    |
-| gebucht        | unvollständig   | Vorschau     | Fehlermeldung '*Unvollständige Anzeige*'                                                         |
-| gebucht        | vollständig     | Vorschau     | Textanzeige oder Bildanzeige; je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
-| gebucht        | unvollständig   | Test         | Leere Anzeige                                                                                    |
-| gebucht        | vollständig     | Test         | Textanzeige oder Bildanzeige; je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
-| gebucht        | unvollständig   | Echt         | Leere Anzeige                                                                                    |
-| gebucht        | vollständig     | Echt         | Textanzeige oder Bildanzeige; je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
+| Buchungsstatus | Vollständigkeit | Versandmodus | XML-Dokument                                                                                                                                                                                                                                                                 |
+|----------------|-----------------|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| reserviert     | unvollständig   | Vorschau     | [Fehlermeldung '*Anzeigenplatz nicht gebucht*'](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-22&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)                                                  |
+| reserviert     | vollständig     | Vorschau     | [Fehlermeldung '*Anzeigenplatz nicht gebucht*'](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-22&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)                                                    |
+| reserviert     | unvollständig   | Test         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-22&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2)                                                                                  |
+| reserviert     | vollständig     | Test         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-22&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2)                                                                                    |
+| reserviert     | unvollständig   | Echt         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-22&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0)                                                                                  |
+| reserviert     | vollständig     | Echt         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-22&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0)                                                                                    |
+| gebucht        | unvollständig   | Vorschau     | [Fehlermeldung '*Unvollständige Anzeige*'](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)                                                       |
+| gebucht        | vollständig     | Vorschau     | [Textanzeige oder Bildanzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3); je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
+| gebucht        | unvollständig   | Test         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2)                                                                                  |
+| gebucht        | vollständig     | Test         | [Textanzeige oder Bildanzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2); je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
+| gebucht        | unvollständig   | Echt         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0)                                                                                  |
+| gebucht        | vollständig     | Echt         | [Textanzeige oder Bildanzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0); je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
 
-| Anzeigenplatz   | Versandmodus | XML-Dokument                                                                                     |
+| Anzeigenplatz   | Versandmodus | XML-Dokument                                    |
 |-----------------|--------------|-------------------------------------------------|
-| ungebucht       | Vorschau     | Fehlermeldung '*Anzeigenplatz nicht gebucht*'   |
-| ungebucht       | Test         | Leere Anzeige                                   |
-| ungebucht       | Echt         | Leere Anzeige                                   |
-| existiert nicht | Vorschau     | Fehlermeldung '*Anzeigenplatz nicht vorhanden*' |
-| existiert nicth | Test         | Leere Anzeige                                   |
-| existiert nicth | Echt         | Leere Anzeige                                   |
+| ungebucht       | Vorschau     | [Fehlermeldung '*Anzeigenplatz nicht gebucht*'](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)   |
+| ungebucht       | Test         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2)                                   |
+| ungebucht       | Echt         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0)                                   |
+| existiert nicht | Vorschau     | [Fehlermeldung '*Anzeigenplatz nicht vorhanden*'](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-01-01&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3) |
+| existiert nicth | Test         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-01-01&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2)                                   |
+| existiert nicth | Echt         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-01-01&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0)                                   |
 
 Ob eine vollständige/unvollständige Bild-/Textanzeige von Advertate geliefert wird, können Sie über den Anzeigenplatz Namen wählen. Die Namen entsprechen den vier Kombinationsmöglichkeiten: `Complete Image Ad`, `Incomplete Image Ad`, `Complete Text Ad`, `Incomplete Text Ad`
 
