@@ -110,14 +110,14 @@ Richten Sie den Content Include in Inxmail Professional mit den folgenden Werten
 - *URL*:`https://advertate-test.inxmail.com/api/placements?publicationTitle=[$publicationTitle]&sendingDate=[$sendingDate]&placementName=[$placementName]&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=[$mailBuildMode]`
 - *URL nur einemal pro Mailversand abfragen*: angehakt
 
-*Beachten Sie*: Der Content Include den Sie hier zum Testen des von Ihnen entwickelten Templates einrichten, unterscheidet sich von dem Content Include für Ihren Kunden im Parameter `apiKey`. Der oben angegebene API Key zeigt auf eine Advertate Test Organisation in der die [unten aufgeführten Testdaten](#die_testdaten) hinterlegt sind.
+*Beachten Sie*: Der Content Include den Sie hier zum Testen des von Ihnen entwickelten Templates einrichten, unterscheidet sich von dem Content Include für Ihren Kunden im Parameter `apiKey`. Der oben angegebene API Key zeigt auf eine Advertate Test Organisation in der die [unten aufgeführten Testdaten](#die-testdaten) hinterlegt sind.
 Möchte Ihr Kunde das Template mit seiner Advertate Organisation nutzen, so muss der Wert für den Parameter `apiKey` auf den API Key Ihres Kunden geändert werden.
 
 ## Die Content Include XSL Transformation
 
-Da Sie die obige Datenquelle mit der Option *als Text einfügen mit vorgeriger Transformation (XML)* angelegt haben, muss bei dem Aufruf des Content Includes eine XSL Transformation angegeben werden. Legen Sie dazu eine Content Include Transformation mit beliebigem Namen an. Der Name der Transformation wird später im Template für den Aufruf des Content Includes benötigt. [In Beispielen unten](#die_template_xsl_transformation) hat sie den Namen *Advertate-transformation*. Die Transformation wandelt die Antwort-XML-Dokumente in das Anzeigen-HTML. Sie bestimmen also mit der Transformation das Aussehen der Anzeigen.
+Da Sie die obige Datenquelle mit der Option *als Text einfügen mit vorgeriger Transformation (XML)* angelegt haben, muss bei dem Aufruf des Content Includes eine XSL Transformation angegeben werden. Legen Sie dazu eine Content Include Transformation mit beliebigem Namen an. Der Name der Transformation wird später im Template für den Aufruf des Content Includes benötigt. [In Beispielen unten](#die-template-xsl-transformation) hat sie den Namen *Advertate-transformation*. Die Transformation wandelt die Antwort-XML-Dokumente in das Anzeigen-HTML. Sie bestimmen also mit der Transformation das Aussehen der Anzeigen.
 
-Die von Ihnen erstellte XSL Transformation muss also mit zwei Kategorien von XML Dokumenten umgegen können; `<placement>`-Dokumenten und `<exception>`-Dokumenten. Wann genau welche Antwort von Advertate kommt, wird in dem Abschnitt [Die Testdaten](#die_testdate) aufgeschlüsselt.
+Die von Ihnen erstellte XSL Transformation muss also mit zwei Kategorien von XML Dokumenten umgegen können; `<placement>`-Dokumenten und `<exception>`-Dokumenten. Wann genau welche Antwort von Advertate kommt, wird in dem Abschnitt [Die Testdaten](#die-testdaten) aufgeschlüsselt.
 
 Das `type`-Attribut des `<exception>`-Elementes kann verwendet werden, um die Meldungen unterschiedlich darzustellen. Als Standard wird empfohlen den `info`-, `warning`- und `error`-Meldungen unterschiedliche Hintergrundfarben zuzuweisen. Die Inxmail Professional konformen Farbwerte sind:
 - info: #E7F7B7
