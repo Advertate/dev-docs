@@ -1,18 +1,18 @@
-# Erweiterung eines Inxmail Templates für Advertate
+# Erweiterung eines Inxmail Professional Templates für Advertate
 
-In diesem Hilfe lernen Sie, wie Sie ein Inxmail Template für Advertate erweitern und Testen. Sie werden lernen, wie Sie
+Mit dieser Anleitung lernen Sie, wie ein Inxmail Professional Template (im Folgenden nur *Template* genannt) für Advertate erweitert und getestet wird. Sie werden erfahren, wie Sie
 
-- die Content Include Datenquelle für Advertate in Inxmail anlegen
+- die Content Include Datenquelle für Advertate in Inxmail Professional anlegen
 - die Content Include XSL Transformation für die Datenquelle erstellen
 - das Template `html.xml` erweitern
 - die Template XSL Transformation `html.xsl` erweitern
-- die Advertate Erweiterung vollständig testen können
+- die Advertate Erweiterung für das Template vollständig testen können
 
-## Der Content Include - Bindeglied zwischen Inxmail und Advertate
+## Der Content Include - Bindeglied zwischen Inxmail Professional und Advertate
 
-Inxmail ruft Anzeigen Daten über den Content Include aus Advertate ab. Advertate antwortet dabei auf den HTTP GET Request von Inxmail stets mit einem HTTP OK Response (HTTP-Statuscode 200). Der HTTP Response Body ist immer ein XML-Dokument, das entweder die Anzeigendaten oder eine Fehlermeldung enhält:
+Inxmail Professional ruft Anzeigen Daten über den Content Include aus Advertate ab. Advertate antwortet dabei auf den HTTP GET Request von Inxmail Professional stets mit einem HTTP OK Response (HTTP-Statuscode 200). Der HTTP Response Body ist immer ein XML-Dokument, das entweder die Anzeigendaten oder eine Fehlermeldung enhält:
 
-Bildanzeige:
+Bildanzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -26,7 +26,7 @@ Bildanzeige:
 </placement>
 ```
 
-Textanzeige:
+Textanzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Text%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -43,7 +43,7 @@ Textanzeige:
 </placement>
 ```
 
-Leere Anzeige:
+Leere Anzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-01-01&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -55,7 +55,7 @@ Leere Anzeige:
 </placement>
 ```
 
-Fehlermeldung '*Anzeigenplatz nicht gebucht*':
+Fehlermeldung '*Anzeigenplatz nicht gebucht*' ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -64,7 +64,7 @@ Fehlermeldung '*Anzeigenplatz nicht gebucht*':
 </exception>
 ```
 
-Fehlermeldung '*Unvollständige Anzeige*':
+Fehlermeldung '*Unvollständige Anzeige*' ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -73,7 +73,7 @@ Fehlermeldung '*Unvollständige Anzeige*':
 </exception>
 ```
 
-Fehlermeldung '*Anzeigenplatz nicht vorhanden*':
+Fehlermeldung '*Anzeigenplatz nicht vorhanden*' ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-01-01&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -82,7 +82,7 @@ Fehlermeldung '*Anzeigenplatz nicht vorhanden*':
 </exception>
 ```
 
-Fehlermeldung '*Kein API Key angegeben*':
+Fehlermeldung '*Kein API Key angegeben*' ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-15&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -91,7 +91,7 @@ Fehlermeldung '*Kein API Key angegeben*':
 </exception>
 ```
 
-Fehlermeldung '*API Key ungültig*':
+Fehlermeldung '*API Key ungültig*' ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=thisapikeyisinvalid&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -104,24 +104,29 @@ Fehlermeldung '*API Key ungültig*':
 
 Richten Sie den Content Include in Inxmail Professional mit den folgenden Werten ein:
 
-- Name: Frei wählbar, der Name wird später im Template für den Content Include Aufruf im Template benötigt. In den Beispielen unten hat sie den Namen *Advertate-include*.
-- Art der Datenquelle: HTTP-Abfrage
-- Daten folgendermaßen in E-Mails verwenden: als Text einfügen mit vorgeriger Transformation (XML)
-- URL:`https://advertate-test.inxmail.com/api/placements?publicationTitle=[$publicationTitle]&sendingDate=[$sendingDate]&placementName=[$placementName]&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=[$mailBuildMode]`
-- URL nur einemal pro Mailversand abfragen: angehakt
+- *Name*: Frei wählbar, der Name wird später im Template für den Content Include Aufruf im Template benötigt. In den Beispielen unten hat sie den Namen *Advertate-include*.
+- *Art der Datenquelle*: HTTP-Abfrage
+- *Daten folgendermaßen in E-Mails verwenden*: als Text einfügen mit vorgeriger Transformation (XML)
+- *URL*:`https://advertate-test.inxmail.com/api/placements?publicationTitle=[$publicationTitle]&sendingDate=[$sendingDate]&placementName=[$placementName]&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=[$mailBuildMode]`
+- *URL nur einemal pro Mailversand abfragen*: angehakt
 
-*Beachten Sie*: Der Content Include den Sie hier zum Testen des von Ihnen entwickelten Templates einrichten, unterscheidet sich von dem Content Include für Ihren Kunden im Parameter `apiKey`. Der oben angegebene API Key zeigt auf eine Advertate Test Organisation in der die unten aufgeführten Testdaten hinterlegt sind.
+*Beachten Sie*: Der Content Include den Sie hier zum Testen des von Ihnen entwickelten Templates einrichten, unterscheidet sich von dem Content Include für Ihren Kunden im Parameter `apiKey`. Der oben angegebene API Key zeigt auf eine Advertate Test Organisation in der die [unten aufgeführten Testdaten](#die_testdaten) hinterlegt sind.
 Möchte Ihr Kunde das Template mit seiner Advertate Organisation nutzen, so muss der Wert für den Parameter `apiKey` auf den API Key Ihres Kunden geändert werden.
 
 ## Die Content Include XSL Transformation
 
-Da Sie die obige Datenquelle mit der Option *als Text einfügen mit vorgeriger Transformation (XML)* angelegt haben, muss bei dem späteren Aufruf des Content Includes eine XSL Transformation angegeben werden. Legen Sie dazu eine Content Include Transformation mit beliebigem Namen an. Der Name der Transformation wird später im Template für den Aufruf des Content Includes benötigt. In Beispielen unten hat sie den Namen *Advertate-transformation*. Die Transformation wandelt die oben aufgeführten XML-Dokumente in das Anzeigen-HTML.
+Da Sie die obige Datenquelle mit der Option *als Text einfügen mit vorgeriger Transformation (XML)* angelegt haben, muss bei dem Aufruf des Content Includes eine XSL Transformation angegeben werden. Legen Sie dazu eine Content Include Transformation mit beliebigem Namen an. Der Name der Transformation wird später im Template für den Aufruf des Content Includes benötigt. [In Beispielen unten](#die_template_xsl_transformation) hat sie den Namen *Advertate-transformation*. Die Transformation wandelt die Antwort-XML-Dokumente in das Anzeigen-HTML. Sie bestimmen also mit der Transformation das Aussehen der Anzeigen.
 
-Die von Ihnen erstellte XSL Transformation muss also mit zwei Kategorien von XML Dokumenten umgegen können; `<placement>`-Dokumenten und `<exception>`-Dokumenten. Wann genau welche Antwort von Advertate kommt, wird in dem Abschnitt *Die Testdaten* aufgeschlüsselt.
+Die von Ihnen erstellte XSL Transformation muss also mit zwei Kategorien von XML Dokumenten umgegen können; `<placement>`-Dokumenten und `<exception>`-Dokumenten. Wann genau welche Antwort von Advertate kommt, wird in dem Abschnitt [Die Testdaten](#die_testdate) aufgeschlüsselt.
 
-Das `type`-Attribut des `<exception>`-Elementes kann verwendet werden, um die Meldungen unterschiedlich darzustellen. Als Standard wird empfohlen den `info`-, `warning`- und `error`-Meldungen unterschiedliche Hintergrundfarben zuzuweisen. Die Inxmail Professional konformen Farbwerte sind: `info`: #E7F7B7 , `warning`: #FFFFBB und `error`: #F5E5E5. Beachten Sie hierzu auch die Beispiel-Transformation, in der das `type`-Attribut verwendet wird um die Meldung in einer passenden Farbe darzustellen.
+Das `type`-Attribut des `<exception>`-Elementes kann verwendet werden, um die Meldungen unterschiedlich darzustellen. Als Standard wird empfohlen den `info`-, `warning`- und `error`-Meldungen unterschiedliche Hintergrundfarben zuzuweisen. Die Inxmail Professional konformen Farbwerte sind:
+- info: #E7F7B7
+- warning: #FFFFBB
+- error: #F5E5E5.
 
-Als Orientierung für die Erstellung Ihrer XSL Transformation kann die folgende Beispiel-Transformation genommen werden:
+Beachten Sie hierzu auch die Beispiel-Transformation, in der das `type`-Attribut verwendet wird, um die Meldung in einer passenden Farbe darzustellen.
+
+Als Orientierung für die Erstellung Ihrer XSL Transformation kann die folgende Beispiel-Transformation herangezogen werden:
 
 ```xsl
 <?xml version="1.0" encoding="iso-8859-1"?>
@@ -264,9 +269,11 @@ Das Template, sprich die Datei `newsletter.xml`, muss um zwei Elemente erweitert
 
 ### Element *Advertate Einstellungen*
 
-Das Element *Advertate Einstellungen* wird benötigt um im Content Include die Parameter `publicationTitle` und `sendingDate` zu setzen.</br> **Wichtig**: Falls Ihr Template nur für einen Newsletter benutzt wird, so sollte der Parameter `publicationTitle` fest im Aufruf des Content Includes eingetragen werden. Eine freie Wahl des Publikationstitels ist nur nötig, wenn bei Ihnen ein Template für mehrere Newsletter genutzt wird.
+Das Element *Advertate Einstellungen* wird benötigt um im Content Include die Parameter `publicationTitle` und `sendingDate` zu setzen. Der Redakteur wählt also mit den zwei Werten die Ausgabe in Advertate.
 
-DTD für den Fall, dass das Element *Advertate Einstellungen* die Felder *Titel* und *Versanddatum* besitzen soll:
+**Wichtig**: Falls Ihr Template nur für einen Newsletter benutzt wird, so sollte der Parameter `publicationTitle` fest im Aufruf des Content Includes eingetragen werden. Eine freie Wahl des Publikationstitels ist nur nötig, wenn bei Ihnen ein Template für mehrere Newsletter genutzt wird.
+
+Die DTD für den Fall, dass das Element *Advertate Einstellungen* die Felder *Titel* und *Versanddatum* besitzen soll:
 
 ```xml
 <!ELEMENT Settings (advertate_pub_title,advertate_pub_date)>
@@ -287,7 +294,7 @@ DTD für den Fall, dass das Element *Advertate Einstellungen* die Felder *Titel*
   auto-generate CDATA "true">
 ```
 
-DTD für den Fall, dass der Newsletter Name fest im Content Include Aufruf eingetragen ist und das Element *Advertate Einstellungen* nur das Feld *Versanddatum* besitzt:
+Die DTD für den Fall, dass der Newsletter Name fest im Content Include Aufruf eingetragen ist und das Element *Advertate Einstellungen* nur das Feld *Versanddatum* besitzt:
 
 ```xml
 <!ELEMENT Settings (advertate_pub_date)>
@@ -313,7 +320,7 @@ Im `<newsletter>`-Element muss dann ein leeres `<Settings>`-Element angelegt wer
 
 ### Element *Advertate Anzeige*
 
-Das Element *Advertate Anzeige* wird benötigt um im Content Include den Parameter `placementName` zu setzen und repräsentiert die tatsächliche Anzeige:
+Das Element *Advertate Anzeige* wird benötigt um im Content Include den Parameter `placementName` zu setzen. Der Redakteur wählt mit diesem Element zum einen die konkrete Anzeige der Ausgabe in Advertate, als auch den Platz der Anzeige im Newsletter.
 
 ```xml
 <!ELEMENT advertate (advertate_ad_name)>
@@ -328,7 +335,7 @@ Das Element *Advertate Anzeige* wird benötigt um im Content Include den Paramet
   auto-generate CDATA "true">
 ```
 
-Falls Ihr Kunde nur einen Anzeigentypen hat oder Ihnen bereits die verschiedenen Anzeigentypen bekannt sind (z.B. Skyscraper, Banner, etc.), so ist es für den Redakteur angenehmer wenn er diese Elemente direkt auswählen kann. In dem Falle sollten Sie also Elemente wie folgt definieren:
+Falls Ihr Kunde nur einen Anzeigentypen hat oder Ihnen bereits die verschiedenen Anzeigentypen bekannt sind (z.B. Skyscraper, Banner, etc.), so ist es für den Redakteur angenehmer wenn er diese Elemente direkt im Template auswählen kann und nicht den Namen des Anzeigentyps eintippen muss. In dem Falle sollten Sie also Elemente wie folgt definieren:
 
 ```xml
 <!ELEMENT advertate_skyscraper>
@@ -351,13 +358,15 @@ Die Template XSL Transformation, also die Datei `html.xsl`, muss den Content Inc
 [%content-include("Advertate-include");xslt("Advertate-transformation");$publicationTitle=??????;$mailBuildMode=[%mailbuildmode];$placementName=??????;$sendingDate=??????]
 ```
 
+**Wichtig**: Die mit Fragezeichen gekennzeichneten Werte, müssen [URL Encodiert](http://de.wikipedia.org/wiki/URL-Encoding) werden. Ein Anzeigenplatz mit dem Namen *Banner Anzeige* muss als Wert `Banner%20Anzeige` an den Parameter `placementName` übergeben werden.
+
 ## Die Testdaten
 
-Wenn das Template und Inxmail nun so wie oben beschrieben angepasst sind, sollte das Template und die Content Include Transformation mit verschiedenen Parametern getestet werden.
+Wenn das Template und Inxmail Professional nun so wie oben beschrieben angepasst sind, sollte das Template und die Content Include Transformation mit verschiedenen Parametern getestet werden.
 
 Dazu existiert auf Advertate Seite eine speziell vorbereitete Test Organisation mit dem API Key `hfWKy300-uWayzBuVsKeEw`. Diese Organisation hat eine Publikation mit dem Namen `Dummy`. Die Publikation besitzt vier Anzeigenplätze: `Complete Image Ad`, `Incomplete Image Ad`, `Complete Text Ad` und `Incomplete Text Ad`. Advertate Unterscheidet zwischen zwei Anzeigentypen: *Bildanzeigen* und *Textanzeigen* (XML Struktur s.o.). Sollten in einer Anzeige auf Advertate Seite Informationen fehlen, die für den Versand dieser Anzeige im Newsletter benötigt werden, so hat diese den Status `incomplete`. Dies ist z.B. der Fall wenn die Bild-URL (`<image-url>`) einer Bildanzeige fehlt. Sind alle Daten vollständig, so hat die Anzeige den Status `complete`. Neben der Vollständigkeits-Status kann eine Anzeige nur reserviert oder bereits gebucht sein.
 
-In Inxmail kann ein Newsletter in der Vorschau angezeigt, in einem Testversand verschickt oder in einem Echtversand verschickt werden. Dieser Versandmodus hat auch Auswirkung darauf wie die Antwort von Advertate aussieht. So sollten z.B. bei einer Vorschau des Newsletters dem Redakeur angezeigt werden, dass eine Anzeige unvollständig ist. Bei einem Echtversand hingegen sollte diese unvollständige Anzeige hingegen gar nicht verschickt werden.
+In Inxmail Professional kann ein Newsletter in der Vorschau angezeigt (mailbuildmode=3), in einem Testversand verschickt (mailbuildmode=2) oder in einem Echtversand verschickt (mailbuildmode=0) werden. Dieser Versandmodus hat auch Auswirkung darauf wie die Antwort von Advertate aussieht. So sollten z.B. bei einer Vorschau des Newsletters dem Redakeur angezeigt werden, dass eine Anzeige unvollständig ist. Bei einem Echtversand hingegen sollte diese unvollständige Anzeige hingegen gar nicht verschickt werden.
 
 Auf einem Anzeigenplatz kann entweder eine Anzeige reserviert/gebucht sein. Allerdings kann es auch vorkommen, dass es gar keinen Interessenten für einen Anzeigenplatz gibt. In diesem Fall wird der Anzeigenplatz als ungebucht bezeichnet.
 
@@ -389,5 +398,5 @@ Die Eingaben des Redakteurs (Publikation, Anzeigenplatz, Versandzeitpunkt, Versa
 
 Ob eine vollständige/unvollständige Bild-/Textanzeige von Advertate geliefert wird, können Sie über den Anzeigenplatz Namen wählen. Die Namen entsprechen den vier Kombinationsmöglichkeiten: `Complete Image Ad`, `Incomplete Image Ad`, `Complete Text Ad`, `Incomplete Text Ad`
 
-Den Buchungsstatus der gelieferten Anzeige wählen Sie (leider nicht ganz intuitiv) über das gewählte Versanddatum: 22-06-2015=reserviert; 29-06-2015=gebucht.
+Den Buchungsstatus der gelieferten Anzeige wählen Sie (leider nicht ganz intuitiv) über die gewählte Ausgabe: 22-06-2015=reserviert; 29-06-2015=gebucht.
 Analog wählen können Sie den Status des Anzegenplatzes wählen: 01-01-2015=existiert nicht; 15-06-2015=ungebucht;
