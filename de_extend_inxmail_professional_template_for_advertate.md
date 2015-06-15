@@ -12,7 +12,7 @@ Mit dieser Anleitung lernen Sie, wie ein Inxmail Professional Template (im Folge
 
 Inxmail Professional ruft Anzeigen Daten über den Content Include aus Advertate ab. Advertate antwortet dabei auf den HTTP GET Request von Inxmail Professional stets mit einem HTTP OK Response (HTTP-Statuscode 200). Der HTTP Response Body ist immer ein XML-Dokument, das entweder die Anzeigendaten oder eine Fehlermeldung enhält:
 
-Bildanzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
+Bildanzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-29&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -26,7 +26,7 @@ Bildanzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=Du
 </placement>
 ```
 
-Textanzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Text%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
+Textanzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Text%20Ad&sendingDate=2015-06-29&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -64,7 +64,7 @@ Fehlermeldung '*Anzeigenplatz nicht gebucht*' ([Live](https://app.advertate.com/
 </exception>
 ```
 
-Fehlermeldung '*Unvollständige Anzeige*' ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
+Fehlermeldung '*Unvollständige Anzeige*' ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-29&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -82,7 +82,7 @@ Fehlermeldung '*Anzeigenplatz nicht vorhanden*' ([Live](https://app.advertate.co
 </exception>
 ```
 
-Fehlermeldung '*Kein API Key angegeben*' ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-15&mailBuildMode=3)):
+Fehlermeldung '*Kein API Key angegeben*' ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-29&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -91,7 +91,7 @@ Fehlermeldung '*Kein API Key angegeben*' ([Live](https://app.advertate.com/api/p
 </exception>
 ```
 
-Fehlermeldung '*API Key ungültig*' ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=thisapikeyisinvalid&mailBuildMode=3)):
+Fehlermeldung '*API Key ungültig*' ([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-29&apiKey=thisapikeyisinvalid&mailBuildMode=3)):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -109,6 +109,8 @@ Richten Sie den Content Include in Inxmail Professional mit den folgenden Werten
 - *Daten folgendermaßen in E-Mails verwenden*: als Text einfügen mit vorgeriger Transformation (XML)
 - *URL*:`https://advertate-test.inxmail.com/api/placements?publicationTitle=[$publicationTitle]&sendingDate=[$sendingDate]&placementName=[$placementName]&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=[$mailBuildMode]`
 - *URL nur einemal pro Mailversand abfragen*: angehakt
+- *Inxmail-Befehle verarbeiten*: angehakt
+- *Zeichensatz-Kodierung*: Unicode (UTF-8)
 
 *Beachten Sie*: Der Content Include den Sie hier zum Testen des von Ihnen entwickelten Templates einrichten, unterscheidet sich von dem Content Include für Ihren Kunden im Parameter `apiKey`. Der oben angegebene API Key zeigt auf eine Advertate Test Organisation in der die [unten aufgeführten Testdaten](#die-testdaten) hinterlegt sind.
 Möchte Ihr Kunde das Template mit seiner Advertate Organisation nutzen, so muss der Wert für den Parameter `apiKey` auf den API Key Ihres Kunden geändert werden.
@@ -380,12 +382,12 @@ Die Eingaben des Redakteurs (Publikation, Anzeigenplatz, Versandzeitpunkt, Versa
 | reserviert     | vollständig     | Test         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-22&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2)                                                                                    |
 | reserviert     | unvollständig   | Echt         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-22&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0)                                                                                  |
 | reserviert     | vollständig     | Echt         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-22&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0)                                                                                    |
-| gebucht        | unvollständig   | Vorschau     | [Fehlermeldung '*Unvollständige Anzeige*'](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)                                                       |
-| gebucht        | vollständig     | Vorschau     | [Textanzeige oder Bildanzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3); je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
-| gebucht        | unvollständig   | Test         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2)                                                                                  |
-| gebucht        | vollständig     | Test         | [Textanzeige oder Bildanzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2); je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
-| gebucht        | unvollständig   | Echt         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0)                                                                                  |
-| gebucht        | vollständig     | Echt         | [Textanzeige oder Bildanzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-15&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0); je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
+| gebucht        | unvollständig   | Vorschau     | [Fehlermeldung '*Unvollständige Anzeige*'](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-29&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)                                                       |
+| gebucht        | vollständig     | Vorschau     | [Textanzeige oder Bildanzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-29&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3); je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
+| gebucht        | unvollständig   | Test         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-29&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2)                                                                                  |
+| gebucht        | vollständig     | Test         | [Textanzeige oder Bildanzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-29&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=2); je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
+| gebucht        | unvollständig   | Echt         | [Leere Anzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Incomplete%20Image%20Ad&sendingDate=2015-06-29&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0)                                                                                  |
+| gebucht        | vollständig     | Echt         | [Textanzeige oder Bildanzeige](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-29&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=0); je nachdem welcher Anzeigentyp auf dem Anzeigenplatz gebucht wurde |
 
 | Anzeigenplatz   | Versandmodus | XML-Dokument                                    |
 |-----------------|--------------|-------------------------------------------------|
