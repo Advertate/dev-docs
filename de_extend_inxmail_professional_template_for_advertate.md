@@ -121,6 +121,8 @@ Da Sie die obige Datenquelle mit der Option *als Text einfügen mit vorgeriger T
 
 Die von Ihnen erstellte XSL Transformation muss also mit zwei Kategorien von XML Dokumenten umgegen können; `<placement>`-Dokumenten und `<exception>`-Dokumenten. Wann genau welche Antwort von Advertate kommt, wird in dem Abschnitt [Die Testdaten](#die-testdaten) aufgeschlüsselt.
 
+### Fehlermeldungen
+
 Das `type`-Attribut des `<exception>`-Elementes kann verwendet werden, um die Meldungen unterschiedlich darzustellen. Als Standard wird empfohlen den `info`-, `warning`- und `error`-Meldungen unterschiedliche Hintergrundfarben zuzuweisen. Die Inxmail Professional konformen Farbwerte sind:
 - info: #E7F7B7
 - warning: #FFFFBB
@@ -128,7 +130,20 @@ Das `type`-Attribut des `<exception>`-Elementes kann verwendet werden, um die Me
 
 Beachten Sie hierzu auch die Beispiel-Transformation, in der das `type`-Attribut verwendet wird, um die Meldung in einer passenden Farbe darzustellen.
 
-Als Orientierung für die Erstellung Ihrer XSL Transformation kann die folgende Beispiel-Transformation herangezogen werden:
+### Links
+
+Mittels der Transformation werden auch die Links auf die Landingpages der Anzeigen erstellt. Beachten Sie dabei die Syntax der Links in Inxmail:
+`[%url:unique-count; <Linkadresse>; <Linktext>; <Aktion>; <Name im Bericht>]`
+
+Beispiel: `[%url:unique-count; "http://www.advertate.com"; "Jetzt Advertate testen!"; ; "Advertate Werbung"]`
+
+Details zu der Link Syntax wie z.B. die Untschiede zwischen `simple`, `count`und `unique-count` können Sie dem Inxmail Handbuch entnehmen.
+
+Beachten Sie dabei einen sinnvollen Wert für `<Name im Bericht>` zu setzten. Falls nicht, wird die `<Linkadresse>` im Inxmail Bericht angeziegt, welche in den meisten Fällen lang und schlecht lesbar ist.
+
+### Beispiel
+
+Als *Orientierung* für die Erstellung Ihrer XSL Transformation kann die folgende Beispiel-Transformation herangezogen werden.
 
 ```xsl
 <?xml version="1.0" encoding="iso-8859-1"?>
@@ -354,6 +369,7 @@ Falls Ihr Kunde nur einen Anzeigentypen hat oder Ihnen bereits die verschiedenen
 
 ## Die Template XSL Transformation
 
+### Content-Include
 Die Template XSL Transformation, also die Datei `html.xsl`, muss den Content Include Aufruf generieren, der im erzeugten Newsletter HTML dann wie folgt aussehen muss. Die mit den Fragezeichen gekennzeichneten Werte ensprchen dann den Eingaben des Redakteurs:
 
 ```
@@ -361,6 +377,10 @@ Die Template XSL Transformation, also die Datei `html.xsl`, muss den Content Inc
 ```
 
 **Wichtig**: Die mit Fragezeichen gekennzeichneten Werte, müssen [URL Encodiert](http://de.wikipedia.org/wiki/URL-Encoding) werden. Ein Anzeigenplatz mit dem Namen *Banner Anzeige* muss als Wert `Banner%20Anzeige` an den Parameter `placementName` übergeben werden.
+
+### Tracking Pixel
+
+Adverate benötigt für die Erstellung des Reports Öffnungsinformationen, die ein Trackingpixel mit dem Namen *Öffnungsrate* liefert.
 
 ## Die Testdaten
 
