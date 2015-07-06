@@ -380,7 +380,11 @@ Die Template XSL Transformation, also die Datei `html.xsl`, muss den Content Inc
 
 ### Tracking Pixel
 
-Adverate benötigt für die Erstellung des Reports Öffnungsinformationen, die ein Trackingpixel mit dem Namen *Öffnungsrate* liefert.
+Adverate benötigt für die Erstellung des Reports Informationen zur Öffnung eines Mailings. Dazu erwartet Advertate einen Trackingpixel mit dem Berichtsnamen *Öffnungsrate*. Die kann z.B. wie folgt aussehen:
+
+```html
+<img src="[%url:unique-count; <URL eine Bildes>; ; ; "Öffnungsrate"]" width="1" height="1" />
+```
 
 ## Die Testdaten
 
