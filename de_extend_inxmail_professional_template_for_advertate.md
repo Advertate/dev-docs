@@ -376,7 +376,7 @@ Die Template XSL Transformation, also die Datei `html.xsl`, muss den Content Inc
 [%content-include("Advertate-include");xslt("Advertate-transformation");$publicationTitle=??????;$mailBuildMode=[%mailbuildmode];$placementName=??????;$sendingDate=??????]
 ```
 
-**Wichtig**: Die mit Fragezeichen gekennzeichneten Werte, müssen [URL Encodiert](http://de.wikipedia.org/wiki/URL-Encoding) werden. Ein Anzeigenplatz mit dem Namen *Banner Anzeige* muss als Wert `Banner%20Anzeige` an den Parameter `placementName` übergeben werden.
+**Wichtig**: Die mit Fragezeichen gekennzeichneten Werte, müssen [UTF-8 URL Encodiert](https://en.wikipedia.org/wiki/Percent-encoding#Current_standard) werden. Beispiel: Ein Anzeigenplatz mit dem Namen *Banner Anzeige* muss als Wert `Banner%20Anzeige` an den Parameter `placementName` übergeben werden. Ein Publikationstitel *Öffentlicher Dienst* muss als Wert `%C3%96ffentlicher%20Dienst` an den Parameter `publicationTitle` übergeben werden.
 
 ### Tracking Pixel
 
