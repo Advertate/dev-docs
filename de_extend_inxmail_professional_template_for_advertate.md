@@ -22,6 +22,7 @@ Bildanzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=Du
     <link-url>https://example.com</link-url>
     <image-url>http://placehold.it/200x400</image-url>
     <type>ImageVert</type>
+    <tracking-pixel>http://my-tracking-service.invalid/pixel.png?id=12345676</tracking-pixel>
   </vert>
 </placement>
 ```
@@ -39,6 +40,7 @@ Textanzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=Du
     <type>TextVert</type>
     <text-image-url>http://placehold.it/100x100</text-image-url>
     <text-as-html>Lorem Ipsum...</text-as-html>
+    <tracking-pixel>http://my-tracking-service.invalid/pixel.png?id=12345676</tracking-pixel>
   </vert>
 </placement>
 ```
@@ -51,6 +53,7 @@ Leere Anzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=
   <vert>
     <link-url>null</link-url>
     <type>null</type>
+    <tracking-pixel>null</tracking-pixel>
   </vert>
 </placement>
 ```
