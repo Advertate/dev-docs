@@ -53,7 +53,6 @@ Leere Anzeige ([Live](https://app.advertate.com/api/placements?publicationTitle=
   <vert>
     <link-url>null</link-url>
     <type>null</type>
-    <tracking-pixel>null</tracking-pixel>
   </vert>
 </placement>
 ```
@@ -381,12 +380,49 @@ Die Template XSL Transformation, also die Datei `html.xsl`, muss den Content Inc
 
 **Wichtig**: Die mit Fragezeichen gekennzeichneten Werte, müssen [UTF-8 URL Encodiert](https://en.wikipedia.org/wiki/Percent-encoding#Current_standard) werden. Beispiel: Ein Anzeigenplatz mit dem Namen *Banner Anzeige* muss als Wert `Banner%20Anzeige` an den Parameter `placementName` übergeben werden. Ein Publikationstitel *Öffentlicher Dienst* muss als Wert `%C3%96ffentlicher%20Dienst` an den Parameter `publicationTitle` übergeben werden.
 
-### Tracking Pixel
+## Reporting und Tracking Pixel
 
-Adverate benötigt für die Erstellung des Reports Informationen über die Öffnungen eines Mailings. Dazu erwartet Advertate einen Trackingpixel mit dem Berichtsnamen *Öffnungsrate*. Dieser kann z.B. wie folgt aussehen:
+### Für Advertate
+
+Adverate benötigt für die Erstellung des eigenen Reports Informationen über die Öffnungen eines Mailings. Dazu erwartet Advertate einen Tracking Pixel mit dem Berichtsnamen *Öffnungsrate*. Dieser kann z.B. wie folgt aussehen:
 
 ```html
 <img src="[%url:unique-count; "http://placehold.it/1x1"; ; ; "Öffnungsrate"]" width="1" height="1" />
+```
+
+***Wichtig***: Ist der Tracking Pixel nicht vorhanden, so kann der Report für Advertate nicht korrekt erstellt werden.
+
+### Für externe Systeme
+
+Es kommt vor, dass der Käufer eines Anzeigenplatzes (oder dessen Agentur) ebenfalls die Öffnungen auf seine Anzeige zählen möchte. Dazu stellt der Käufer, neben den sonstigen Anzeigen Daten, wie die Landing-Page-URL, einen Link zu einem Tracking Pixel zur Verfügung.
+Dieser Link kann **optional** in Advertate für eine Anzeige eingetragen werden und ist im XML-Dokument der Anzeige als `<tracking-pixel>`-Tag verfügbar.
+
+Der Tracking Pixel wurde angegeben([Live](https://app.advertate.com/api/placements?publicationTitle=Dummy&placementName=Complete%20Image%20Ad&sendingDate=2015-06-29&apiKey=hfWKy300-uWayzBuVsKeEw&mailBuildMode=3)):
+```xml
+<placement>
+  ...
+  <vert type="ImageVert">
+    ...
+    <tracking-pixel>http://my-tracking-service.invalid/pixel.png?id=12345676</tracking-pixel>
+  </vert>
+</placement>
+```
+
+Der Tracking Pixel wurde *nicht* angegeben:
+```xml
+<placement>
+  ...
+  <vert type="ImageVert">
+    ...
+    <tracking-pixel/>
+  </vert>
+</placement>
+```
+
+[Die Transformation](#die-content-include-xsl-transformation) muss dann dafür sorgen, dass der Link zu dem Tracking Pixel in ein Bild umgewandelt wird.
+
+```html
+<img src="http://my-tracking-service.invalid/pixel.png?id=12345676" alt="" width="1" height="1" border="0" hspace="0" vspace="0">
 ```
 
 ## Die Testdaten
